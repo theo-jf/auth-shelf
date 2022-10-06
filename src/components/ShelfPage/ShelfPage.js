@@ -9,11 +9,18 @@ function ShelfPage() {
     dispatch({ type: 'SAGA_GET_SHELF' });
 }, []);
 
+const shelfItems = useSelector(store => store.shelf);
+// console.log(shelfItems);
+
   
   return (
     <div className="container">
       <h2>Shelf</h2>
-      <p>All of the available items can be seen here.</p>
+      <ul>
+          {/* {shelfItems.map(item => (
+            <li key={item.id}>{item.description}</li>
+        ))} */}
+      </ul>
     </div>
   );
 }

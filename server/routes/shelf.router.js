@@ -6,7 +6,7 @@ const router = express.Router();
  * Get all of the items on the shelf
  */
 router.get('/', (req, res) => {
-  console.log('hi')
+  // console.log('hi')
   const queryTxt = `
                 SELECT * FROM item`;
   pool.query(queryTxt)
