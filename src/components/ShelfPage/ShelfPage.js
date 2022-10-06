@@ -1,6 +1,7 @@
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import ShelfPageForm from './ShelfPageForm';
 
 
 function ShelfPage() {
@@ -15,6 +16,7 @@ const shelfItems = useSelector(store => store.shelf);
   
   return (
     <div className="container">
+      <ShelfPageForm />
       <h2>Shelf</h2>
       <ul>
           {/* {shelfItems.map(item => (

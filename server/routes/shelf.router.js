@@ -24,6 +24,21 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   // endpoint functionality
+  const newItem = req.body;
+
+  sqlText = `INSERT INTO "item"
+                ("description", "image_url", "user_id")
+                VALUES
+                ($1, $2, $3);`
+
+  pool.query(sqlText, [newItem.description, newItem.image_url, req.user.id])
+    .then(response => {
+      res.sendStatus(201);
+    })
+    .catch(error => {
+      console.log('/api/shelf POST query error', error);
+      res.sendStatus(500);
+    })
 });
 
 /**
