@@ -29,13 +29,13 @@ function* postItem(action) {
 function* deleteItem(action) {
     try {
         const deleteId = action.payload;
-        yield axios.delete(`/api/shelf${deleteId}`);
+        yield axios.delete(`/api/shelf/${deleteId}`);
         yield put ({
             type: 'SAGA_GET_SHELF'
         })
     } catch (error) {
         console.log(error);
-        alert('Error deleting shelf item');
+        alert('Error deleting shelf item, you may not have permission');
     }
 
 }
@@ -44,11 +44,10 @@ function* deleteItem(action) {
 
 
 
-
 function* shelfSaga() {
     yield takeLatest('SAGA_GET_SHELF', getShelf);
     yield takeLatest('SAGA_POST_ITEM', postItem);
-    yield takeLatest('SAGA_DELETE_ITEM', deleteItem);
+    yield takeLatest('SAGA_DELETE_THIS', deleteItem);
   }
   
   export default shelfSaga;

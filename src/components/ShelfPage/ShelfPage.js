@@ -7,10 +7,17 @@ function ShelfPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: 'SAGA_GET_SHELF' });
-}, []);
+  }, []);
 
-const shelfItems = useSelector(store => store.shelf);
-console.log('SHELF', shelfItems);
+  const deleteItem = (id) => {
+    dispatch({
+      type: 'SAGA_DELETE_THIS',
+      payload: id
+    });
+  }
+
+  const shelfItems = useSelector(store => store.shelf);
+  console.log('SHELF', shelfItems);
 
   
   return (
@@ -22,7 +29,7 @@ console.log('SHELF', shelfItems);
           return (
             <li key={item.id}>{item.description} 
                 <img src={item.image_url} />
-                <button>delete item</button></li>
+                <button onClick={() => deleteItem(item.id)}>delete item</button></li>
           );
         })}
       </ul>

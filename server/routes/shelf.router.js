@@ -46,6 +46,27 @@ router.post('/', (req, res) => {
  */
 router.delete('/:id', (req, res) => {
   // endpoint functionality
+  deleteId = req.params.id;
+  
+  sqlText = `DELETE FROM "item"
+              WHERE "id" = $1
+              AND "user_id" = $2;`
+  console.log(req.user.id);
+  pool.query(sqlText, [deleteId, req.user.id])
+  .then(response => {
+    console.log(response);
+    if (response.rowCount === 0) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  })
+  .catch(error => {
+    console.log('/api/shelf DELETE query error', error);
+    res.sendStatus(500);
+  })
+
+
 });
 
 /**
