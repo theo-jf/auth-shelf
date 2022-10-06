@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
 import ShelfPageForm from './ShelfPageForm';
 
 
@@ -11,7 +10,7 @@ function ShelfPage() {
 }, []);
 
 const shelfItems = useSelector(store => store.shelf);
-// console.log(shelfItems);
+console.log('SHELF', shelfItems);
 
   
   return (
@@ -19,9 +18,11 @@ const shelfItems = useSelector(store => store.shelf);
       <ShelfPageForm />
       <h2>Shelf</h2>
       <ul>
-          {/* {shelfItems.map(item => (
-            <li key={item.id}>{item.description}</li>
-        ))} */}
+        {shelfItems.map((item) => {
+          return (
+            <li>{item.description}</li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -9,6 +9,5 @@ const shelf = (state = [], action) => {
     return state
 }
 
-export default combineReducers({
-    shelf
-  });
+
+export default shelf;
