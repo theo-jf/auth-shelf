@@ -30,9 +30,9 @@ function* putEdits(action) {
     try {
         const updateId = action.payload.id;
         yield axios.put(`/api/shelf/${updateId}`, action.payload);
-        yield put ({
-            type: 'SAGA_GET_SHELF'
-        })
+        // yield put ({
+        //     type: 'SAGA_GET_SHELF'
+        // })
     } catch (error) {
         console.log(error);
         alert('Error confirming edits, you may not have permission');

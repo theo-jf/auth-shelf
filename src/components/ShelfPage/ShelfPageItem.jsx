@@ -10,11 +10,15 @@ export default function ShelfPageItem({item}) {
     const [image_url, setImage_url] = useState(item.image_url);
 
       const editItem = () => {
-        dispatch({
-            type: 'SAGA_PUT_EDITS',
-            payload: {id: item.id, description: description, image_url: image_url}
-        })
-        setEditView(false);
+        if (description != '' && image_url != '') {
+            dispatch({
+                type: 'SAGA_PUT_EDITS',
+                payload: {id: item.id, description: description, image_url: image_url}
+            })
+            setEditView(false);
+        } else {
+            alert(`Edits can't be blank!`)
+        }
     }
 
     const deleteItem = () => {
@@ -25,7 +29,13 @@ export default function ShelfPageItem({item}) {
       }
 
     return (
-        (editView) ? 
+        (!editView) ? 
+        <li key={item.id}>
+            {description} <img src={image_url}/>
+            <button onClick={() => setEditView(true)}>edit item</button>
+            <button onClick={deleteItem}>delete item</button>
+        </li>
+        :
         <li key={item.id}>
             <input placeholder="description"
                     value={description} 
@@ -34,12 +44,6 @@ export default function ShelfPageItem({item}) {
                     value={image_url} 
                     onChange={(e) => setImage_url(e.target.value)}/>
             <button onClick={editItem}>confirm edits</button>
-            <button onClick={deleteItem}>delete item</button>
-        </li>
-        :
-        <li key={item.id}>
-            {item.description} <img src={item.image_url}/>
-            <button onClick={() => setEditView(true)}>edit item</button>
             <button onClick={deleteItem}>delete item</button>
         </li>
     );
