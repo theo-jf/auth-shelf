@@ -2,10 +2,14 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
+
 /**
  * Get all of the items on the shelf
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   // console.log('hi')
   const queryTxt = `
                 SELECT * FROM item`;
@@ -22,7 +26,7 @@ router.get('/', (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => { 
   // endpoint functionality
   const newItem = req.body;
 
@@ -44,7 +48,7 @@ router.post('/', (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
   deleteId = req.params.id;
   
@@ -72,7 +76,7 @@ router.delete('/:id', (req, res) => {
 /**
  * Update an item if it's something the logged in user added
  */
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
 });
 
