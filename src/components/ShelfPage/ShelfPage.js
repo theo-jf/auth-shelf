@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ShelfPageForm from './ShelfPageForm';
+import ShelfPageItem from './ShelfPageItem';
 
 
 function ShelfPage() {
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch({ type: 'SAGA_GET_SHELF' });
   }, []);
-
-  const deleteItem = (id) => {
-    dispatch({
-      type: 'SAGA_DELETE_THIS',
-      payload: id
-    });
-  }
 
   const shelfItems = useSelector(store => store.shelf);
   console.log('SHELF', shelfItems);
@@ -27,9 +23,7 @@ function ShelfPage() {
       <ul>
         {shelfItems.map((item) => {
           return (
-            <li key={item.id}>{item.description} 
-                <img src={item.image_url} />
-                <button onClick={() => deleteItem(item.id)}>delete item</button></li>
+            <ShelfPageItem key={item.id} item={item} />
           );
         })}
       </ul>

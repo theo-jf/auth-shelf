@@ -26,6 +26,19 @@ function* postItem(action) {
 
 }
 
+function* putEdits(action) {
+    try {
+        const updateId = action.payload.id;
+        yield axios.put(`/api/shelf/${updateId}`, action.payload);
+        yield put ({
+            type: 'SAGA_GET_SHELF'
+        });
+    } catch (error) {
+        console.log(error);
+        alert('Error confirming edits, you may not have permission');
+    }
+}
+
 function* deleteItem(action) {
     try {
         const deleteId = action.payload;
@@ -47,6 +60,7 @@ function* deleteItem(action) {
 function* shelfSaga() {
     yield takeLatest('SAGA_GET_SHELF', getShelf);
     yield takeLatest('SAGA_POST_ITEM', postItem);
+    yield takeLatest('SAGA_PUT_EDITS', putEdits);
     yield takeLatest('SAGA_DELETE_THIS', deleteItem);
   }
   

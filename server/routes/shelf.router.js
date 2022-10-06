@@ -12,7 +12,7 @@ const {
 router.get('/', rejectUnauthenticated, (req, res) => {
   // console.log('hi')
   const queryTxt = `
-                SELECT * FROM item`;
+                SELECT * FROM item ORDER BY "id";`;
   pool.query(queryTxt)
     .then(result => {
       res.send(result.rows);
@@ -78,6 +78,27 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
  */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+  updateId = req.params.id;
+
+  sqlText = `UPDATE "item"
+              SET "description" = $1, "image_url" = $2
+                WHERE "id" = $3
+                AND "user_id" = $4;`
+  
+  pool.query(sqlText, [req.body.description, req.body.image_url, updateId, req.user.id])
+    .then(response => {
+      console.log(response);
+      if (response.rowCount === 0) {
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    })
+    .catch(error => {
+      console.log('/api/shelf PUT query error', error);
+      res.sendStatus(500);
+    })
+
 });
 
 /**
