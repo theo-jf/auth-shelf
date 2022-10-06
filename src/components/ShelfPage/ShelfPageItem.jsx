@@ -11,8 +11,8 @@ export default function ShelfPageItem({item}) {
 
       const editItem = () => {
         dispatch({
-            type: 'SAGA_PUT_EDIT',
-            payload: {description: description, image_url: image_url}
+            type: 'SAGA_PUT_EDITS',
+            payload: {id: item.id, description: description, image_url: image_url}
         })
         setEditView(false);
     }
