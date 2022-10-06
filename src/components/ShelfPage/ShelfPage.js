@@ -20,7 +20,9 @@ console.log('SHELF', shelfItems);
       <ul>
         {shelfItems.map((item) => {
           return (
-            <li>{item.description}</li>
+            <li key={item.id}>{item.description} 
+                <img src={item.image_url} />
+                <button>delete item</button></li>
           );
         })}
       </ul>
