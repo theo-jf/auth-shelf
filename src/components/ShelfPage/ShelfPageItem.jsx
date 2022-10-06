@@ -16,6 +16,8 @@ export default function ShelfPageItem({item}) {
                 payload: {id: item.id, description: description, image_url: image_url}
             })
             setEditView(false);
+            // setDescription(item.description);
+            // setImage_url(item.image_url);
         } else {
             alert(`Edits can't be blank!`)
         }
@@ -31,7 +33,7 @@ export default function ShelfPageItem({item}) {
     return (
         (!editView) ? 
         <li key={item.id}>
-            {description} <img src={image_url}/>
+            {item.description} <img src={item.image_url}/>
             <button onClick={() => setEditView(true)}>edit item</button>
             <button onClick={deleteItem}>delete item</button>
         </li>
